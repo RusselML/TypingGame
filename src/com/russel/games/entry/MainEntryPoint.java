@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 public class MainEntryPoint extends Application{
 	Dictionary dictionary;
 	
-	private StackPane root  = new StackPane();
+	private StackPane root;
 	private long startTime;
 	
 	public static void main(String[] args) {
@@ -25,19 +25,22 @@ public class MainEntryPoint extends Application{
 	public void start(Stage primaryStage) throws Exception {
 		dictionary = new Dictionary(new GameManager());
 		
-		//setStage(primaryStage);
-		
-		
+		//get the scene setup
 		Scene scene = new Scene(setUp());
+		
+		//get the scene to listen for keyboard events 
         scene.setOnKeyPressed(e -> onKeyPress(e.getCode().toString()));
 
+        primaryStage.setTitle("SpeedTyper!");
+        
+        //display the scene on the stage
         primaryStage.setScene(scene);
         primaryStage.show();
 	}
 	
 	
 	private Parent setUp() {
-		//root = new StackPane();
+		root = new StackPane();
 		root.setPrefSize(900, 700);
 		showNextWord();
 		return root;
@@ -65,34 +68,5 @@ public class MainEntryPoint extends Application{
             showNextWord();
         }
     }
-//	private void setStage(Stage primaryStage) {	
-//		//Create a button object to use in the program 
-//		Button btn = new Button();
-//		btn.setText("Get Random Word");
-//		Label firstWord = new Label();
-//		firstWord.setFont(new Font ("Ariel", 25));
-//		
-//		firstWord.setTranslateY(-50);
-//		//firstWord.setText(arg0);
-//		
-//		VBox vbox = new VBox();
-//		vbox.getChildren().addAll(btn, firstWord);
-//		btn.setOnAction(new EventHandler<ActionEvent>() {
-//			@Override
-//			public void handle(ActionEvent event) {
-//				firstWord.setText(dictionary.getRandomWord());
-//			}
-//		});
-//	
-//		Scene scene = new Scene(vbox, 500, 650);
-//		scene.setFill(Color.SKYBLUE);
-//		
-//		//root.getChildren().add(vbox);
-//		
-//		vbox.setAlignment(Pos.CENTER);
-//		
-//		primaryStage.setTitle("SpeedTyper!");
-//		primaryStage.setScene(scene);	
-//		primaryStage.show();
-//	}
+
 }
