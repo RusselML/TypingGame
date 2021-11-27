@@ -23,13 +23,16 @@ public class WordView extends HBox {
         letters = word.toUpperCase().toCharArray();
         
         //initialize the bitset to be true
-        charErrors = new BitSet(letters.length);
-        charErrors.set(0, charErrors.length());
+        charErrors = new BitSet(word.length());
         
+        for(int i = 0; i < word.length(); i++) {
+        	charErrors.set(i);
+        }
+
         for (char c : letters) {
             Text letter = new Text(c + "");
             letter.setFont(Font.font(108));
-
+            letter.applyCss();
             getChildren().add(letter);
         }
 
@@ -46,14 +49,18 @@ public class WordView extends HBox {
         //red if typed incorrectly, and white if they still need to be typed
         if (letter.charAt(0) == c && charErrors.get(correctLetters)) {
             //TODO change this letter to gray
-        	getChildren().get(correctLetters).setVisible(false);
+        	//getChildren().get(correctLetters).setVisible(false);
+        	getChildren().get(correctLetters).setStyle("-fx-fill: gray;");
             correctLetters++;
         } else if (letter.charAt(0) != c && charErrors.get(correctLetters)){
             //first incorrectly typed - TODO change this letter to red
         	 charErrors.set(correctLetters, false);
+        	 
         	error++;
-        } else {
+        } else if(letter.charAt(0) == c){
         	//TODO?? 
+        	getChildren().get(correctLetters).setStyle("-fx-fill: red;");
+        	correctLetters++;
         }
     }
 
