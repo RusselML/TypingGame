@@ -45,10 +45,9 @@ public class MainEntryPoint extends Application{
 		
 		//setup the initial words
 		setInitialWords();
-		
 		showNextWord();
 		
-		//get the scene to listen for keyboard events 
+		//get the scene to listen for keyboard events. e is the event keycode representation of the key that was pressed
         scene.setOnKeyPressed(e -> onKeyPress(e.getCode().toString()));
 
         primaryStage.setTitle("SpeedTyper!");
@@ -135,7 +134,6 @@ public class MainEntryPoint extends Application{
             root.getChildren().get(2).setScaleY(1);
             root.getChildren().get(3).setScaleY(.75);
             
-            System.out.println(wordStack);
            // root.getChildren().get(4).setScaleY(.5);
             showNextWord();
             root.getChildren().get(4).setScaleX(.5);
