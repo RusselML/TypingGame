@@ -31,8 +31,6 @@ public class GameManager implements AFileReader{
 	 */
 	@Override
 	public String readText() throws IOException {
-
-		
 		StringBuilder allLines = new StringBuilder();
 		setFilePath(filePath);
 
@@ -69,8 +67,9 @@ public class GameManager implements AFileReader{
 	
 	/**
 	 * Checks to see if a given file exists, if not then it will check and see if the default dictionary file exists before downloading it.
+	 * @param filePath - the path to the file to be used
 	 */
-	//@Override
+	@Override
 	 public void setFilePath(String filePath) throws IllegalArgumentException {
 		File file = new File(filePath);
 		if(Objects.isNull(filePath) || filePath.isBlank() || filePath.isEmpty()) {
@@ -86,11 +85,12 @@ public class GameManager implements AFileReader{
 	}
 	
 	/**
-	 * Verifys that the default dictionary exists locally when an invalid dictionary has been used,
+	 * Verify that the default dictionary exists locally when an invalid dictionary has been used,
 	 * if the default dictionary does not exist then the file will be downloaded directly from its source.
 	 * @param file
 	 */
 	private void getDefaultDictionary(File file) {
+		//TODO - implement a more secure way of getting this file. (This is a random third party site)
 		String url = "http://www.mieliestronk.com/corncob_lowercase.txt";
 		file = new File(this.filePath);
 		if(!file.exists()) {

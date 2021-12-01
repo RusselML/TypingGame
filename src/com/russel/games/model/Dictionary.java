@@ -6,8 +6,18 @@ import java.util.Random;
 
 import com.russel.games.processor.AFileReader;
 
+/**
+ * A dictionary is used to hold a large collection of words. These words may be accessed randomly at any time by the user. 
+ * @author Russel
+ *
+ */
 public class Dictionary extends AbstractDictionary {
 
+	/**
+	 * Constructs a dictionary of words using the text extracted from the filereader 
+	 * @param aFileReader
+	 * @throws IOException
+	 */
 	public Dictionary(AFileReader aFileReader) throws IOException {
 		super(aFileReader);
 	}

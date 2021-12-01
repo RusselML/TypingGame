@@ -11,51 +11,51 @@ import java.net.URL;
 /**
  * A downloader may be used to retrieve a file from the web with a given url
  * @author Russel
- *
+ * @since 11/30/2021
  */
 public class Downloader implements Runnable {
-	private String link;
+	private String urlLink;
 	private File download;
 	
 	/**
 	 * Creates a downloader with a http link and a file object to write the download to 
-	 * @param link
-	 * @param download
+	 * @param urlLink a string representing the actual url of the file to download
+	 * @param download a file object to be written to
 	 */
-	public Downloader(String link, File download) {
-		this.link = link;
-		this.download = download;
-		
+	public Downloader(String urlLink, File download) {
+		this.urlLink = urlLink;
+		this.download = download;	
 	}
 	
-	//https://www.youtube.com/watch?v=rd6m-6l2xQQ
+	
 	/**
 	 * Downloads a file from the web and writes it to file object of this class.
+	 * 
+	 * TODO - https://www.baeldung.com/java-download-file
 	 */
 	@Override
 	public void run() {
 		try {
-			URL url = new URL(link);
+			//open the url connection
+			URL url = new URL(urlLink);
 			HttpURLConnection http = (HttpURLConnection)url.openConnection();
-			double fileSize = (double)http.getContentLength();
+			
+			//setup the buffer anf file output from the connection
 			BufferedInputStream in = new BufferedInputStream(http.getInputStream());
 			FileOutputStream fos = new FileOutputStream(download);
 			BufferedOutputStream bout = new BufferedOutputStream(fos, 1024);
 			byte[] buffer = new byte[1024];
-			double downloaded = 0.0;
 			int read = 0;
-			double percentDownloaded = 0.0;
-			
+		
 			System.out.println("DefaultDictionary.txt isn't downloaded onto your system!");
 			System.out.println("Downloading file...");
+			
+			//write data from the buffered input stream to the file 
 			while((read = in.read(buffer, 0, 1024)) >= 0) {
 				bout.write(buffer, 0, read);
-				downloaded += read;
-				//percentDownloaded = (downloaded*100)/fileSize;
-				//String percent = String.format("%.2f", percentDownloaded);
-				//System.out.println("Downloaded..." + percent + "%");
 			}
-			
+			 
+			//close everything
 			bout.close();
 			in.close();
 			System.out.println("Download complete!");
